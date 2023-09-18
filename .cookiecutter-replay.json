@@ -1,0 +1,45 @@
+{
+  "cookiecutter": {
+    "Introduction": "",
+    "type": "lib",
+    "name": "flake8_numbers",
+    "description": "Flake8 Numbers Plugin",
+    "title": "Flake Numbers Plugin",
+    "keywords": "flake8,numbers,plugin",
+    "github_org": "frequenz-floss",
+    "license": "MIT",
+    "author_name": "Frequenz Energy-as-a-Service GmbH",
+    "author_email": "floss@frequenz.com",
+    "python_package": "flake8_numbers",
+    "pypi_package_name": "flake8-numbers",
+    "github_repo_name": "flake8-numbers",
+    "default_codeowners": "@frequenz-floss/python-sdk-team",
+    "_template": "gh:frequenz-floss/frequenz-repo-config-python",
+    "_repo_dir": "/home/christianparpart/.cookiecutters/frequenz-repo-config-python/cookiecutter"
+  },
+  "_cookiecutter": {
+    "Introduction": "{{cookiecutter | introduction}}",
+    "type": [
+      "actor",
+      "api",
+      "app",
+      "lib",
+      "model"
+    ],
+    "name": null,
+    "description": null,
+    "title": "{{cookiecutter | title}}",
+    "keywords": "(comma separated: 'frequenz', <type> and <name> are included automatically)",
+    "github_org": "frequenz-floss",
+    "license": [
+      "MIT",
+      "Proprietary"
+    ],
+    "author_name": "Frequenz Energy-as-a-Service GmbH",
+    "author_email": "floss@frequenz.com",
+    "python_package": "{{cookiecutter | python_package}}",
+    "pypi_package_name": "{{cookiecutter | pypi_package_name}}",
+    "github_repo_name": "{{cookiecutter | github_repo_name}}",
+    "default_codeowners": "(like @some-org/some-team; defaults to a team based on the repo type)"
+  }
+}
