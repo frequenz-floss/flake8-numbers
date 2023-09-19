@@ -1,4 +1,4 @@
-# Flake Numbers Plugin
+# Flake8 Numbers Plugin
 
 [![Build Status](https://github.com/frequenz-floss/flake8-numbers/actions/workflows/ci.yaml/badge.svg)](https://github.com/frequenz-floss/flake8-numbers/actions/workflows/ci.yaml)
 [![PyPI Package](https://img.shields.io/pypi/v/flake8-numbers)](https://pypi.org/project/flake8-numbers/)
@@ -8,7 +8,9 @@
 
 Flake8 Numbers Plugin
 
-TODO(cookiecutter): Improve the README file
+This repository is currently in bootstrapping phase, expect it to be flakey 😊.
+
+TODO: Improve the README file
 
 ## Contributing
 

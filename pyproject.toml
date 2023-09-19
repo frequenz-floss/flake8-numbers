@@ -71,6 +71,8 @@ dev-pylint = [
 dev-pytest = [
   "pytest == 7.4.0",
   "frequenz-repo-config[extra-lint-examples] == 0.6.2",
+  "pytest-flake8",
+  "pytest-flake8-path",
   "pytest-mock == 3.11.1",
   "pytest-asyncio == 0.21.1",
   "async-solipsism == 0.5",
@@ -111,6 +113,10 @@ check-yield-types = false
 arg-type-hints-in-docstring = false
 arg-type-hints-in-signature = true
 allow-init-docstring = true
+per-file-ignores = [
+    '__init__.py:F401',
+]
+count = true
 
 [tool.pylint.similarities]
 ignore-comments = ['yes']
