@@ -9,6 +9,9 @@ requires = [
 ]
 build-backend = "setuptools.build_meta"
 
+[project.entry-points."flake8.extension"]
+NUM = "flake8_numbers.check_numbers:Flake8NumbersChecker"
+
 [project]
 name = "flake8-numbers"
 description = "Flake8 Numbers Plugin"
@@ -71,6 +74,7 @@ dev-pylint = [
 dev-pytest = [
   "pytest == 7.4.0",
   "frequenz-repo-config[extra-lint-examples] == 0.6.2",
+  "pytest-flake8",
   "pytest-mock == 3.11.1",
   "pytest-asyncio == 0.21.1",
   "async-solipsism == 0.5",
@@ -111,6 +115,8 @@ check-yield-types = false
 arg-type-hints-in-docstring = false
 arg-type-hints-in-signature = true
 allow-init-docstring = true
+per-file-ignores = []
+count = true
 
 [tool.pylint.similarities]
 ignore-comments = ['yes']
