@@ -2,6 +2,7 @@
 
 import ast
 from dataclasses import dataclass
+from importlib import metadata
 from typing import Any, Iterable, Optional, Tuple, Type
 
 
@@ -19,11 +20,54 @@ class ErrorReport:
     """The error message."""
 
 
+def _base_value(number_literal: str) -> int:
+    """Get the base value of the given number literal.
+
+    Args:
+        number_literal: The number literal to get the base value of.
+
+    Returns:
+        The base value of the given number literal.
+    """
+    lower_number_literal = number_literal.lower()
+    if lower_number_literal.startswith("0b"):
+        return 2
+    if lower_number_literal.startswith("0o"):
+        return 8
+    if lower_number_literal.startswith("0x"):
+        return 16
+    return 10
+
+
+def _separator_modulo_for_base(base: int) -> int:
+    """Get the separator modulo for the given base.
+
+    Note: We keep this currently as helper function, to make that part of the code
+    more readable as well as open up the possibility of making this configurable
+    in the future.
+
+    Args:
+        base: The base to get the separator modulo for.
+
+    Returns:
+        The separator modulo for the given base.
+    """
+    match base:
+        case 2:
+            return 4
+        case 8:
+            return 4
+        case 16:
+            return 4
+        case _:
+            return 3
+
+
 class Flake8NumbersChecker:
     """class to represent a flake8 plugin to check for numbers and their readability."""
 
     name = "flake8.numbers"
-    version = "0.1.0"
+    version = metadata.version("flake8-numbers")
     off_by_default = False
 
     # Important: The parameter names must match exactly the way how flake8 expects them.
@@ -38,6 +82,21 @@ class Flake8NumbersChecker:
         """
         self._tree = tree
         self._filename = filename
+        self._source_lines: Optional[list[str]] = None
+
+    @property
+    def source_lines(self) -> list[str]:
+        """Get the source lines of the file being checked.
+
+        This value is cached on-demand.
+
+        Returns:
+            The source lines of the file being checked.
+        """
+        if self._source_lines is None:
+            with open(self._filename, "r", encoding="utf-8") as source_file:
+                self._source_lines = source_file.readlines()
+        return self._source_lines
 
     def run(self) -> Iterable[Tuple[int, int, str, Type[Any]]]:
         """Run the checker.
@@ -46,15 +105,14 @@ class Flake8NumbersChecker:
             A tuple of the form (line, column, message, type).
         """
         for node in ast.walk(self._tree):
-            if isinstance(node, ast.Constant):
-                if isinstance(node.value, (int, float)):
-                    if result := self.check_constant(node):
-                        yield (
-                            result.line,
-                            result.column,
-                            result.message,
-                            Flake8NumbersChecker,
-                        )
+            if isinstance(node, ast.Num):
+                if result := self.check_constant(node):
+                    yield (
+                        result.line,
+                        result.column,
+                        result.message,
+                        Flake8NumbersChecker,
+                    )
 
     def _extract_code(self, node: ast.AST) -> str:
         """Extract the code of the given AST node.
@@ -67,13 +125,11 @@ class Flake8NumbersChecker:
         """
         start_line, start_col = node.lineno, node.col_offset
         end_line, end_col = node.end_lineno, node.end_col_offset
-        with open(self._filename, "r", encoding="utf-8") as source_file:
-            lines = source_file.readlines()
-            original_code = "".join(
-                line[start_col:end_col].strip()
-                for line in lines[start_line - 1 : end_line]
-            )
-            return original_code
+        original_code = "".join(
+            line[start_col:end_col].strip()
+            for line in self.source_lines[start_line - 1 : end_line]
+        )
+        return original_code
 
     def _check_underscore_modulos(
         self,
@@ -113,7 +169,7 @@ class Flake8NumbersChecker:
 
         return None
 
-    def check_constant(self, node: ast.Constant) -> Optional[ErrorReport]:
+    def check_constant(self, node: ast.Num) -> Optional[ErrorReport]:
         """Check for the readability of the given numeric literal.
 
         Args:
@@ -122,19 +178,11 @@ class Flake8NumbersChecker:
         Returns:
             An ErrorReport if the node is a number literal that is not well formatted.
         """
-        if not isinstance(node.value, (int, float)):
-            return None
-
         original_literal = self._extract_code(node)
 
-        if original_literal in ["True", "False"]:
-            return None
-
-        is_binary = original_literal.startswith("0b")
-        is_octal = original_literal.lower().startswith("0o")
-        is_hexadecimal = original_literal.lower().startswith("0x")
-        is_decimal = not is_binary and not is_octal and not is_hexadecimal
-        separator_modulo = 4 if is_hexadecimal else 3
+        base_value = _base_value(original_literal)
+        separator_modulo = _separator_modulo_for_base(base_value)
+        is_decimal = base_value == 10
 
         is_science_notation = is_decimal and "e" in original_literal.lower()
         is_float = "." in original_literal

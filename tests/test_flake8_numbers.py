@@ -68,6 +68,21 @@ def _check_code(code: str) -> list[tuple[int, int, str, type]]:
         (1, "0xDEADBEEF"),
         (1, "0xAAA_DE_AD_BEEF"),
         (1, "0xAAA_DEAD_BE_EF"),
+        # Octal numbers, modulo 4 (not 3!)
+        (0, "0o0755"),
+        (0, "0o1740"),
+        (0, "0o1740_1234"),
+        (0, "0o17_1234"),
+        (1, "0o171_234"),
+        # Do not interfere with other literal numbers like booleans
+        (0, "True"),
+        (0, "False"),
+        # Binary numbers,
+        (0, "0b1010"),
+        (0, "0b1010_1010"),
+        (0, "0b1010_1010_1010"),
+        (1, "0b10101010"),
+        (1, "0b1010_10101010"),
     ],
 )
 def test_large_number_without_underscore(expected_errors: int, code: str) -> None:
