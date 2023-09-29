@@ -105,7 +105,7 @@ class Flake8NumbersChecker:
             A tuple of the form (line, column, message, type).
         """
         for node in ast.walk(self._tree):
-            if isinstance(node, ast.Num):
+            if isinstance(node, ast.Constant):
                 if result := self.check_constant(node):
                     yield (
                         result.line,
@@ -169,7 +169,7 @@ class Flake8NumbersChecker:
 
         return None
 
-    def check_constant(self, node: ast.Num) -> Optional[ErrorReport]:
+    def check_constant(self, node: ast.Constant) -> Optional[ErrorReport]:
         """Check for the readability of the given numeric literal.
 
         Args:
@@ -178,7 +178,12 @@ class Flake8NumbersChecker:
         Returns:
             An ErrorReport if the node is a number literal that is not well formatted.
         """
+        if type(node.value) not in (int, float):
+            return None
+
         original_literal = self._extract_code(node)
+        if original_literal in ["True", "False"]:
+            return None
 
         base_value = _base_value(original_literal)
         separator_modulo = _separator_modulo_for_base(base_value)

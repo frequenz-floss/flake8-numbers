@@ -19,7 +19,7 @@ def _check_code(code: str) -> list[tuple[int, int, str, type]]:
     Returns:
         List of errors.
     """
-    with tempfile.NamedTemporaryFile(mode="w", suffix=".py") as file:
+    with tempfile.NamedTemporaryFile(mode="w") as file:
         file_contents = "var = " + code + "\n"
         file.write(file_contents)
         file.flush()
@@ -74,15 +74,19 @@ def _check_code(code: str) -> list[tuple[int, int, str, type]]:
         (0, "0o1740_1234"),
         (0, "0o17_1234"),
         (1, "0o171_234"),
-        # Do not interfere with other literal numbers like booleans
+        # Do not interfere with other constant literal types
         (0, "True"),
         (0, "False"),
+        (0, "None"),
         # Binary numbers,
         (0, "0b1010"),
         (0, "0b1010_1010"),
         (0, "0b1010_1010_1010"),
         (1, "0b10101010"),
         (1, "0b1010_10101010"),
+        # negative values
+        (0, "-100_000"),
+        (0, "-100"),
     ],
 )
 def test_large_number_without_underscore(expected_errors: int, code: str) -> None:
