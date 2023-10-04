@@ -5,8 +5,6 @@
 import ast
 import tempfile
 
-import pytest
-
 from flake8_numbers import check_numbers
 
 
@@ -35,66 +33,89 @@ def _check_code(code: str) -> list[tuple[int, int, str, type]]:
         # return list(checker.run())
 
 
-@pytest.mark.parametrize(
-    "expected_errors,code",
-    [
-        # decimal values require _ modulo 3
-        (0, "1"),
-        (0, "10"),
-        (0, "100"),
-        (0, "1_000"),
-        (0, "10_000"),
-        (0, "100_000"),
-        (1, "1000"),
-        (1, "10000"),
-        (1, "100_00"),
-        # floating point decimal values require _ modulo 3, also after the decimal point
-        (0, "123_456_789.0"),
-        (0, "123_456_789.12"),
-        (0, "123_456_789.12_345"),
-        (0, "123_456_789.123_456_789"),
-        (1, "123_4567_89.123_456_789"),
-        (1, "123_456_789.123456789"),
-        (1, "123_456_789.123456_789"),
-        # hexadecimal values require _ modulo 4
-        (0, "0x1"),
-        (0, "0x12"),
-        (0, "0x123"),
-        (0, "0xDEAD"),
-        (0, "0xDEAD_BEEF"),
-        (0, "0xA_DEAD_BEEF"),
-        (0, "0xAA_DEAD_BEEF"),
-        (0, "0xAAA_DEAD_BEEF"),
-        (1, "0xDEADBEEF"),
-        (1, "0xAAA_DE_AD_BEEF"),
-        (1, "0xAAA_DEAD_BE_EF"),
-        # Octal numbers, modulo 4 (not 3!)
-        (0, "0o0755"),
-        (0, "0o1740"),
-        (0, "0o1740_1234"),
-        (0, "0o17_1234"),
-        (1, "0o171_234"),
-        # Do not interfere with other constant literal types
-        (0, "True"),
-        (0, "False"),
-        (0, "None"),
-        # Binary numbers,
-        (0, "0b1010"),
-        (0, "0b1010_1010"),
-        (0, "0b1010_1010_1010"),
-        (1, "0b10101010"),
-        (1, "0b1010_10101010"),
-        # negative values
-        (0, "-100_000"),
-        (0, "-100"),
-    ],
-)
-def test_large_number_without_underscore(expected_errors: int, code: str) -> None:
-    """Test that large numbers without underscores are flagged.
+def _check_okay(code: str) -> None:
+    """Check that code is okay.
 
     Args:
-        expected_errors: Expected number of errors.
-        code: Code to test.
+        code: Code to check.
     """
-    errors = _check_code(code)
-    assert len(errors) == expected_errors
+    assert len(_check_code(code)) == 0, f"expected no errors for code '{code}'"
+
+
+def _check_fail(code: str, count: int = 1) -> None:
+    """Check that code is okay.
+
+    Args:
+        code: Code to check.
+        count: Number of errors expected.
+    """
+    assert len(_check_code(code)) == count, f"expected {count} errors for code '{code}'"
+
+
+def test_decimal() -> None:
+    """Test that decimal numbers are flagged."""
+    _check_okay("1")
+    _check_okay("10")
+    _check_okay("100")
+    _check_okay("1_000")
+    _check_okay("10_000")
+    _check_okay("100_000")
+
+    _check_fail("1000")
+    _check_fail("10000")
+    _check_fail("100_00")
+
+
+def test_octal() -> None:
+    """Test octal numbers, modulo 4 (not 3!)."""
+    _check_okay("0o0755")
+    _check_okay("0o1740")
+    _check_okay("0o1740_1234")
+    _check_okay("0o17_1234")
+    _check_fail("0o171_234")
+
+
+def test_non_integer_constants() -> None:
+    """Do not interfere with other constant literal types."""
+    _check_okay("True")
+    _check_okay("False")
+    _check_okay("None")
+
+
+def test_floating_point_decimal() -> None:
+    """
+    Test floating point decimal values.
+
+    Require _ modulo 3, also after the decimal point.
+    """
+    _check_okay("123_456_789.0")
+    _check_okay("123_456_789.12")
+    _check_okay("123_456_789.12_345")
+    _check_okay("123_456_789.123_456_789")
+    _check_fail("123_4567_89.123_456_789")
+    _check_fail("123_456_789.123456789")
+    _check_fail("123_456_789.123456_789")
+
+
+def test_hexadecimal() -> None:
+    """Test hexadecimal values require _ modulo 4."""
+    _check_okay("0x1")
+    _check_okay("0x12")
+    _check_okay("0x123")
+    _check_okay("0xDEAD")
+    _check_okay("0xDEAD_BEEF")
+    _check_okay("0xA_DEAD_BEEF")
+    _check_okay("0xAA_DEAD_BEEF")
+    _check_okay("0xAAA_DEAD_BEEF")
+    _check_fail("0xDEADBEEF")
+    _check_fail("0xAAA_DE_AD_BEEF")
+    _check_fail("0xAAA_DEAD_BE_EF")
+
+
+def test_binary() -> None:
+    """Test that binary numbers are flagged."""
+    _check_okay("0b1010")
+    _check_okay("0b1010_1010")
+    _check_okay("0b1010_1010_1010")
+    _check_fail("0b10101010")
+    _check_fail("0b1010_10101010")
