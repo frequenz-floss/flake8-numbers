@@ -60,6 +60,7 @@ def test_decimal() -> None:
     _check_okay("1_000")
     _check_okay("10_000")
     _check_okay("100_000")
+    _check_okay("-100_000")
 
     _check_fail("1000")
     _check_fail("10000")
@@ -72,6 +73,7 @@ def test_octal() -> None:
     _check_okay("0o1740")
     _check_okay("0o1740_1234")
     _check_okay("0o17_1234")
+    _check_okay("-0o17_1234")
     _check_fail("0o171_234")
 
 
@@ -92,6 +94,7 @@ def test_floating_point_decimal() -> None:
     _check_okay("123_456_789.12")
     _check_okay("123_456_789.12_345")
     _check_okay("123_456_789.123_456_789")
+    _check_okay("-123_456_789.123_456_789")
     _check_fail("123_4567_89.123_456_789")
     _check_fail("123_456_789.123456789")
     _check_fail("123_456_789.123456_789")
@@ -107,6 +110,7 @@ def test_hexadecimal() -> None:
     _check_okay("0xA_DEAD_BEEF")
     _check_okay("0xAA_DEAD_BEEF")
     _check_okay("0xAAA_DEAD_BEEF")
+    _check_okay("-0xAAA_DEAD_BEEF")
     _check_fail("0xDEADBEEF")
     _check_fail("0xAAA_DE_AD_BEEF")
     _check_fail("0xAAA_DEAD_BE_EF")
@@ -117,5 +121,6 @@ def test_binary() -> None:
     _check_okay("0b1010")
     _check_okay("0b1010_1010")
     _check_okay("0b1010_1010_1010")
+    _check_okay("-0b1010_1010_1010")
     _check_fail("0b10101010")
     _check_fail("0b1010_10101010")

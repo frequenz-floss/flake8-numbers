@@ -182,6 +182,10 @@ class Flake8NumbersChecker:
             return None
 
         original_literal = self._extract_code(node)
+
+        # NB: We have to check for True and False here, because they are also of type
+        #     Constant, but are not numeric literals.
+        #     We cannot simply use ast.Num, because that was deprecated.
         if original_literal in ["True", "False"]:
             return None
 
