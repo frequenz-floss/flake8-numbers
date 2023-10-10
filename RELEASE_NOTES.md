@@ -3,6 +3,7 @@
 ## Summary
 
 <!-- Here goes a general summary of what this release is about -->
+This is the initial release of the flake8 numbers checker plugin.
 
 ## Upgrading
 

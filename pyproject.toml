@@ -9,6 +9,9 @@ requires = [
 ]
 build-backend = "setuptools.build_meta"
 
+[project.entry-points."flake8.extension"]
+NUM = "flake8_numbers.check_numbers:Flake8NumbersChecker"
+
 [project]
 name = "flake8-numbers"
 description = "Flake8 Numbers Plugin"
@@ -36,7 +39,6 @@ dynamic = ["version"]
 name = "Frequenz Energy-as-a-Service GmbH"
 email = "floss@frequenz.com"
 
-# TODO(cookiecutter): Remove and add more optional dependencies if appropriate
 [project.optional-dependencies]
 dev-flake8 = [
   "flake8 == 6.1.0",
@@ -111,6 +113,7 @@ check-yield-types = false
 arg-type-hints-in-docstring = false
 arg-type-hints-in-signature = true
 allow-init-docstring = true
+count = true
 
 [tool.pylint.similarities]
 ignore-comments = ['yes']
