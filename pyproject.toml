@@ -52,12 +52,12 @@ dev-mkdocs = [
   "mike == 1.1.2",
   "mkdocs-gen-files == 0.5.0",
   "mkdocs-literate-nav == 0.6.1",
-  "mkdocs-material == 9.4.4",
+  "mkdocs-material == 9.4.5",
   "mkdocstrings[python] == 0.23.0",
   "frequenz-repo-config[lib] == 0.6.2",
 ]
 dev-mypy = [
-  "mypy == 1.5.1",
+  "mypy == 1.6.0",
   # For checking the noxfile, docs/ script, and tests
   "flake8-numbers[dev-mkdocs,dev-noxfile,dev-pytest]",
 ]
