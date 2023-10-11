@@ -8,9 +8,16 @@
 
 Flake8 Numbers Plugin
 
-This repository is currently in bootstrapping phase, expect it to be flakey 😊.
+This plugin ensures that large numbers of all bases are using digit seperators for improved readability.
 
-TODO: Improve the README file
+Some examples of well written numeric literals are:
+
+```python
+good_float   = 123_456_789.123_456_789
+good_hex     = 0xA_DEAD_BEEF
+good_decimal = 10_000_000
+good_binary  = 0b1010_1010_1010
+```
 
 ## Contributing
 
