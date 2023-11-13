@@ -5,7 +5,7 @@
 requires = [
   "setuptools == 68.1.0",
   "setuptools_scm[toml] == 7.1.0",
-  "frequenz-repo-config[lib] == 0.6.2",
+  "frequenz-repo-config[lib] == 0.7.5",
 ]
 build-backend = "setuptools.build_meta"
 
@@ -47,23 +47,23 @@ dev-flake8 = [
   "pydoclint == 0.3.8",
   "pydocstyle == 6.3.0",
 ]
-dev-formatting = ["black == 23.10.0", "isort == 5.12.0"]
+dev-formatting = ["black == 23.11.0", "isort == 5.12.0"]
 dev-mkdocs = [
   "mike == 1.1.2",
   "mkdocs-gen-files == 0.5.0",
   "mkdocs-literate-nav == 0.6.1",
-  "mkdocs-material == 9.4.6",
+  "mkdocs-material == 9.4.8",
   "mkdocstrings[python] == 0.23.0",
-  "frequenz-repo-config[lib] == 0.6.2",
+  "frequenz-repo-config[lib] == 0.7.5",
 ]
 dev-mypy = [
-  "mypy == 1.6.1",
+  "mypy == 1.7.0",
   # For checking the noxfile, docs/ script, and tests
   "flake8-numbers[dev-mkdocs,dev-noxfile,dev-pytest]",
 ]
 dev-noxfile = [
   "nox == 2023.4.22",
-  "frequenz-repo-config[lib] == 0.6.2",
+  "frequenz-repo-config[lib] == 0.7.5",
 ]
 dev-pylint = [
   "pylint == 2.17.5",
@@ -71,8 +71,8 @@ dev-pylint = [
   "flake8-numbers[dev-mkdocs,dev-noxfile,dev-pytest]",
 ]
 dev-pytest = [
-  "pytest == 7.4.2",
-  "frequenz-repo-config[extra-lint-examples] == 0.6.2",
+  "pytest == 7.4.3",
+  "frequenz-repo-config[extra-lint-examples] == 0.7.5",
   "pytest-mock == 3.12.0",
   "pytest-asyncio == 0.21.1",
   "async-solipsism == 0.5",
