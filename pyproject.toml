@@ -74,7 +74,7 @@ dev-pytest = [
   "pytest == 7.4.4",
   "frequenz-repo-config[extra-lint-examples] == 0.8.0",
   "pytest-mock == 3.12.0",
-  "pytest-asyncio == 0.23.2",
+  "pytest-asyncio == 0.23.3",
   "async-solipsism == 0.5",
 ]
 dev = [
