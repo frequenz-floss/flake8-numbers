@@ -62,7 +62,7 @@ dev-mypy = [
   "flake8-numbers[dev-mkdocs,dev-noxfile,dev-pytest]",
 ]
 dev-noxfile = [
-  "nox == 2023.4.22",
+  "nox == 2024.3.2",
   "frequenz-repo-config[lib] == 0.9.0",
 ]
 dev-pylint = [
