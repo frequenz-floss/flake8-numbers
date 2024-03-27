@@ -27,25 +27,31 @@
 # be created in the GitHub repository.
 
 "part:docs":
-  - "**/*.md"
-  - "docs/**"
-  - "examples/**"
-  - LICENSE
+  - changed-files:
+    - any-glob-to-any-file:
+      - "**/*.md"
+      - "docs/**"
+      - "examples/**"
+      - LICENSE
 
 "part:tests":
-  - "**/conftest.py"
-  - "tests/**"
+  - changed-files:
+    - any-glob-to-any-file:
+      - "**/conftest.py"
+      - "tests/**"
 
 "part:tooling":
-  - "**/*.ini"
-  - "**/*.toml"
-  - "**/*.yaml"
-  - "**/*.yml"
-  - "**/conftest.py"
-  - ".editorconfig"
-  - ".git*"
-  - ".git*/**"
-  - "docs/*.py"
-  - CODEOWNERS
-  - MANIFEST.in
-  - noxfile.py
+  - changed-files:
+    - any-glob-to-any-file:
+      - "**/*.ini"
+      - "**/*.toml"
+      - "**/*.yaml"
+      - "**/*.yml"
+      - "**/conftest.py"
+      - ".editorconfig"
+      - ".git*"
+      - ".git*/**"
+      - "docs/*.py"
+      - CODEOWNERS
+      - MANIFEST.in
+      - noxfile.py
