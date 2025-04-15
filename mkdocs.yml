@@ -122,7 +122,7 @@ plugins:
   # inside docstrings. See the comment in `docs/_scripts/macros.py` for more
   # details
   - macros:
-      module_name: docs/_scripts/macros
+      modules: ["frequenz.repo.config.mkdocs.mkdocstrings_macros"]
       on_undefined: strict
       on_error_fail: true
   - search
