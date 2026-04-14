@@ -16,7 +16,8 @@ NUM = "flake8_numbers.check_numbers:Flake8NumbersChecker"
 name = "flake8-numbers"
 description = "Flake8 Numbers Plugin"
 readme = "README.md"
-license = { text = "MIT" }
+license = "MIT"
+license-files = ["LICENSE"]
 keywords = [
   "frequenz",
   "python",
@@ -30,7 +31,6 @@ keywords = [
 classifiers = [
   "Development Status :: 3 - Alpha",
   "Intended Audience :: Developers",
-  "License :: OSI Approved :: MIT License",
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3 :: Only",
   "Topic :: Software Development :: Libraries",
@@ -47,6 +47,7 @@ email = "floss@frequenz.com"
 [project.optional-dependencies]
 dev-flake8 = [
   "flake8 == 7.3.0",
+  "flake8-datetimez == 20.10.0",
   "flake8-docstrings == 1.7.0",
   "flake8-pyproject == 1.2.4", # For reading the flake8 config from pyproject.toml
   "pydoclint == 0.7.6",
