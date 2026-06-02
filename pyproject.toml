@@ -67,7 +67,7 @@ dev-mkdocs = [
 ]
 dev-mypy = [
   "mypy == 1.20.2",
-  "types-Markdown == 3.10.2.20260408",
+  "types-Markdown == 3.10.2.20260518",
   # For checking the noxfile, docs/ script, and tests
   "flake8-numbers[dev-mkdocs,dev-noxfile,dev-pytest]",
 ]
