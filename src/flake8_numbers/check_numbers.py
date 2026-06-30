@@ -42,9 +42,10 @@ def _base_value(number_literal: str) -> int:
 def _separator_modulo_for_base(base: int) -> int:
     """Get the separator modulo for the given base.
 
-    Note: We keep this currently as helper function, to make that part of the code
-    more readable as well as open up the possibility of making this configurable
-    in the future.
+    Note:
+        We keep this currently as a helper function, to make that part of the
+        code more readable as well as open up the possibility of making this
+        configurable in the future.
 
     Args:
         base: The base to get the separator modulo for.
