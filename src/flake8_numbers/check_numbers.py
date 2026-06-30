@@ -65,7 +65,7 @@ def _separator_modulo_for_base(base: int) -> int:
 
 
 class Flake8NumbersChecker:
-    """class to represent a flake8 plugin to check for numbers and their readability."""
+    """A flake8 plugin to check for numbers and their readability."""
 
     name = "flake8.numbers"
     version = metadata.version("flake8-numbers")
@@ -87,12 +87,9 @@ class Flake8NumbersChecker:
 
     @property
     def source_lines(self) -> list[str]:
-        """Get the source lines of the file being checked.
+        """The source lines of the file being checked.
 
         This value is cached on-demand.
-
-        Returns:
-            The source lines of the file being checked.
         """
         if self._source_lines is None:
             with open(self._filename, "r", encoding="utf-8") as source_file:
