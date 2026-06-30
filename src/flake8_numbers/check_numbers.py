@@ -140,7 +140,7 @@ class Flake8NumbersChecker:
     ) -> Optional[ErrorReport]:
         """Check the given fragment for underscores at every modulo position.
 
-        Every part of the fragemnt that is separated by an underscore must be of length modulo.
+        Every part of the fragment that is separated by an underscore must be of length modulo.
         The first part of the fragment is allowed to be shorter than modulo.
 
         Args:
