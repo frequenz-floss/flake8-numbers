@@ -42,9 +42,10 @@ def _base_value(number_literal: str) -> int:
 def _separator_modulo_for_base(base: int) -> int:
     """Get the separator modulo for the given base.
 
-    Note: We keep this currently as helper function, to make that part of the code
-    more readable as well as open up the possibility of making this configurable
-    in the future.
+    Note:
+        We keep this currently as a helper function, to make that part of the
+        code more readable as well as open up the possibility of making this
+        configurable in the future.
 
     Args:
         base: The base to get the separator modulo for.
@@ -64,7 +65,7 @@ def _separator_modulo_for_base(base: int) -> int:
 
 
 class Flake8NumbersChecker:
-    """class to represent a flake8 plugin to check for numbers and their readability."""
+    """A flake8 plugin to check for numbers and their readability."""
 
     name = "flake8.numbers"
     version = metadata.version("flake8-numbers")
@@ -86,12 +87,9 @@ class Flake8NumbersChecker:
 
     @property
     def source_lines(self) -> list[str]:
-        """Get the source lines of the file being checked.
+        """The source lines of the file being checked.
 
         This value is cached on-demand.
-
-        Returns:
-            The source lines of the file being checked.
         """
         if self._source_lines is None:
             with open(self._filename, "r", encoding="utf-8") as source_file:
@@ -140,7 +138,7 @@ class Flake8NumbersChecker:
     ) -> Optional[ErrorReport]:
         """Check the given fragment for underscores at every modulo position.
 
-        Every part of the fragemnt that is separated by an underscore must be of length modulo.
+        Every part of the fragment that is separated by an underscore must be of length modulo.
         The first part of the fragment is allowed to be shorter than modulo.
 
         Args:
