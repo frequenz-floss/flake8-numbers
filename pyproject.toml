@@ -4,7 +4,7 @@
 [build-system]
 requires = [
   "setuptools == 82.0.1",
-  "setuptools_scm[toml] == 10.2.0",
+  "setuptools_scm[toml] == 10.2.1",
   "frequenz-repo-config[lib] == 0.18.0",
 ]
 build-backend = "setuptools.build_meta"
@@ -60,8 +60,8 @@ dev-mkdocs = [
   "mkdocs-gen-files == 0.6.1",
   "mkdocs-literate-nav == 0.6.3",
   "mkdocs-macros-plugin == 1.5.0",
-  "mkdocs-material == 9.7.6",
-  "mkdocstrings[python] == 1.0.4",
+  "mkdocs-material == 9.7.7",
+  "mkdocstrings[python] == 1.0.6",
   "mkdocstrings-python == 2.0.5",
   "frequenz-repo-config[lib] == 0.18.0",
 ]
