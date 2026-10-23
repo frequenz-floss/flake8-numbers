@@ -82,7 +82,7 @@ dev-pytest = [
   "frequenz-repo-config[extra-lint-examples] == 0.19.0",
   "pytest-mock == 3.17.0",
   "pytest-asyncio == 1.4.0",
-  "async-solipsism == 0.9",
+  "async-solipsism == 0.10",
 ]
 dev = [
   "flake8-numbers[dev-mkdocs,dev-flake8,dev-formatting,dev-mkdocs,dev-mypy,dev-noxfile,dev-pylint,dev-pytest]",
