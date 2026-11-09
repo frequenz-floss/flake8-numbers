@@ -41,7 +41,7 @@ jobs:
           permission-pull-requests: write
 
       - name: Auto-merge Dependabot PR
-        uses: frequenz-floss/dependabot-auto-approve@e943399cc9d76fbb6d7faae446cd57301d110165 # v1.5.0
+        uses: frequenz-floss/dependabot-auto-approve@2a24095b8c0e6c27a75668b5808d5b7f7e72b06e # v1.6.0
         with:
           github-token: ${{ steps.app-token.outputs.token }}
           dependency-type: 'all'
